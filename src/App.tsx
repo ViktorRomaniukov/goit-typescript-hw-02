@@ -27,8 +27,12 @@ function App() {
         const data = await searchImages(query, page);
         setImages(prev => [...prev, ...data.results]);
         setTotalPages(data.total_pages);
-      } catch (err) {
-        setError('Failed to fetch images');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Failed to fetch images');
+        }
       } finally {
         setIsLoading(false);
       }
