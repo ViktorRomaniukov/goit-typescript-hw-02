@@ -1,21 +1,22 @@
 import './modal-config.js';
 import { useEffect, useState } from 'react';
-import { SearchBar } from './components/SearchBar/SearchBar.jsx';
-import { ImageGallery } from './components/ImageGallery/ImageGallery.jsx';
-import { Loader } from './components/Loader/Loader.jsx';
-import { ErrorMessage } from './components/ErrorMessage/ErrorMessage.jsx';
-import { LoadMoreBtn } from './components/LoadMoreBtn/LoadMoreBtn.jsx';
-import { ImageModal } from './components/ImageModal/ImageModal.jsx';
+import { SearchBar } from './components/SearchBar/SearchBar';
+import { ImageGallery } from './components/ImageGallery/ImageGallery';
+import { Loader } from './components/Loader/Loader';
+import { ErrorMessage } from './components/ErrorMessage/ErrorMessage';
+import { LoadMoreBtn } from './components/LoadMoreBtn/LoadMoreBtn';
+import { ImageModal } from './components/ImageModal/ImageModal';
 import { searchImages } from './components/photoRequest-api';
+import { UnsplashImage } from './components/types/image';
 
 function App() {
-  const [query, setQuery] = useState('');
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [totalPages, setTotalPages] = useState(0);
+  const [query, setQuery] = useState<string>('');
+  const [images, setImages] = useState<UnsplashImage[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string|null>(null);
+  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     if (!query) return;
@@ -35,7 +36,7 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const handleSearch = newQuery => {
+  const handleSearch = (newQuery: string) => {
     if (newQuery === query) return;
     setQuery(newQuery);
     setImages([]);

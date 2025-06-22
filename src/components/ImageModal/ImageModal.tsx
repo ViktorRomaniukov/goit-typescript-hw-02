@@ -1,9 +1,14 @@
 import Modal from 'react-modal';
 import styles from './ImageModal.module.css';
+import { UnsplashImage } from '../types/image';
 
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  image: UnsplashImage;
+}
 
-
-export function ImageModal({ isOpen, onRequestClose, image }) {
+export function ImageModal({ isOpen, onRequestClose, image }: ImageModalProps) {
   if (!image) return null;
 
   const {
@@ -26,7 +31,7 @@ export function ImageModal({ isOpen, onRequestClose, image }) {
       </button>
       <img
         src={urls.regular}
-        alt={alt_description || 'Image'}
+        alt={alt_description ?? 'Image'}
         className={styles.image}
       />
       <div className={styles.info}>
